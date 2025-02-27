@@ -1,6 +1,6 @@
 package com.example.authorization_service.service;
 
-import com.example.authorization_service.dto.ClientRecord;
+import com.example.authorization_service.dto.ClientDTO;
 import com.example.authorization_service.entity.ClientEntity;
 import com.example.authorization_service.parse.ParseClientDTOToClientEntity;
 import com.example.authorization_service.repository.ClientRepository;
@@ -17,7 +17,7 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public ClientEntity save(ClientRecord client) {
+    public ClientEntity save(ClientDTO client) {
         ClientEntity clientToSave = new ParseClientDTOToClientEntity().parse(client);
         return clientRepository.save(clientToSave);
     }
