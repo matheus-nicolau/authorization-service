@@ -1,10 +1,20 @@
 package com.example.authorization_service.repository;
 
+import com.example.authorization_service.service.ClientService;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomRegisteredClientRepository implements RegisteredClientRepository {
 
+    private final ClientService clientService;
+
+    public CustomRegisteredClientRepository(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @Override
     public void save(RegisteredClient registeredClient) {
@@ -18,6 +28,18 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
 
     @Override
     public RegisteredClient findByClientId(String clientId) {
-        return null;
+        var client = clientService.findByClientId(clientId);
+        if(client == null) return null;
+
+        return RegisteredClient
+                            .withId(client.getId().toString())
+                            .clientId(client.getClientId())
+                            .clientSecret(client.getClientSecret())
+                            .redirectUri(client.getRedirectUri())
+                            .scope(client.getScope())
+                            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                            .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                            .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                            .build();
     }
 }
