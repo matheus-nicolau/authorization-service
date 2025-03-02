@@ -1,0 +1,52 @@
+#server:
+#  port: 9000
+#
+#logging:
+#  level:
+#    org.springframework.security: trace
+
+spring:
+  application:
+    name: authorization-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+      show-sql: true
+  security:
+    user:
+      name: user
+      password: password
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 165477658368-0i53a0rr9qj935h0isherhluqkpgnmpc.apps.googleusercontent.com
+            client-secret: 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
+
+#    oauth2:
+#      authorizationserver:
+#        client:
+#          oidc-client:
+#            registration:
+#              client-id: "oidc-client"
+#              client-secret: "{noop}secret"
+#              client-authentication-methods:
+#                - "client_secret_basic"
+#              authorization-grant-types:
+#                - "authorization_code"
+#                - "refresh_token"
+#              redirect-uris:
+#                - "http://127.0.0.1:8080/login/oauth2/code/oidc-client"
+#              post-logout-redirect-uris:
+#                - "http://127.0.0.1:8080/"
+#              scopes:
+#                - "openid"
+#                - "profile"
+#            require-authorization-consent: true
