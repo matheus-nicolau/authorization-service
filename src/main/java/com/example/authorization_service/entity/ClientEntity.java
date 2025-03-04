@@ -11,11 +11,12 @@ public class ClientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    private final String clientId;
-    private final String clientSecret;
-    private final String redirectUri;
-    private final String scope;
+    private String clientId;
+    private String clientSecret;
+    private String redirectUri;
+    private String scope;
 
+    public ClientEntity() {}
 
     public ClientEntity(String clientId, String clientSecret,
                         String redirectUri, String scope) {
@@ -45,4 +46,23 @@ public class ClientEntity {
         return scope;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
+
+    public void setRedirectUri(String redirectUri) {
+        this.redirectUri = redirectUri;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
 }
