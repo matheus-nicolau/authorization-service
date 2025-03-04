@@ -9,13 +9,7 @@ import javax.security.auth.Subject;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class CustomAuthentication implements Authentication{
-
-    private final UserEntity user;
-
-    public CustomAuthentication(UserEntity user) {
-        this.user = user;
-    }
+public record CustomAuthentication( UserEntity user) implements Authentication {
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
@@ -58,9 +52,5 @@ public class CustomAuthentication implements Authentication{
     @Override
     public boolean implies(Subject subject) {
         return Authentication.super.implies(subject);
-    }
-
-    public UserEntity getUser() {
-        return user;
     }
 }

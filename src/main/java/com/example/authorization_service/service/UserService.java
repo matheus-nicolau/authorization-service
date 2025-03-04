@@ -30,13 +30,13 @@ public class UserService {
     }
 
     public UserEntity findByLogin(String login) {
-        Optional<UserEntity> userFinded = usersRepository.findByLogin(login);
-        return userFinded.orElseGet(userFinded::orElseThrow);
+        Optional<UserEntity> userFound = usersRepository.findByLogin(login);
+        return userFound.orElseThrow(RuntimeException::new);
     }
 
     public UserEntity findByEmail(String email) {
-        Optional<UserEntity> userFinded = usersRepository.findByEmail(email);
-        return userFinded.orElseGet(userFinded::orElseThrow);
+        Optional<UserEntity> userFound = usersRepository.findByEmail(email);
+        return userFound.orElseThrow(RuntimeException::new);
     }
 
     public List<UserReturnDTO> findAllUsers() {
