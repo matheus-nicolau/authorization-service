@@ -14,11 +14,8 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     private String login;
-
     private String password;
-
     private String email;
 
     @Type(ListArrayType.class)
