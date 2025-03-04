@@ -47,7 +47,11 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
                             .scope(client.getScope())
                             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                            .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                             .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                            .postLogoutRedirectUri("http://127.0.0.1:8080/")
+                            .scope(OidcScopes.OPENID)
+                            .scope(OidcScopes.PROFILE)
                             .tokenSettings(tokenSettings)
                             .clientSettings(clientSettings)
                             .build();

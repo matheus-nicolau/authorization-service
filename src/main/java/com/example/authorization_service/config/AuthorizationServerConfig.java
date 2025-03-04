@@ -3,6 +3,7 @@ package com.example.authorization_service.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,10 +30,13 @@ public class AuthorizationServerConfig {
             .securityMatcher(authorizationConfigure.getEndpointsMatcher())
             .with(authorizationConfigure, (authorizationServer) ->
                                             authorizationServer.oidc(Customizer.withDefaults()))
-            .authorizeHttpRequests(authorize ->
-                                            authorize.anyRequest().authenticated())
+            .authorizeHttpRequests(authorize ->{
+                                    authorize.requestMatchers(HttpMethod.POST, "/client/create").permitAll();
+                                    authorize.anyRequest().authenticated();
+            })
             .oauth2ResourceServer(oauth ->
-                                            oauth.jwt(Customizer.withDefaults()))
+                                            oauth.jwt(Customizer.withDefaults())
+            )
             .exceptionHandling(exceptions ->
                                             exceptions.defaultAuthenticationEntryPointFor(
                                                     new LoginUrlAuthenticationEntryPoint("/login"),
@@ -47,8 +51,10 @@ public class AuthorizationServerConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .authorizeHttpRequests((authorize) ->
-                                                authorize.anyRequest().authenticated())
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests((authorize) -> {
+                                    authorize.anyRequest().authenticated();
+            })
             .formLogin(Customizer.withDefaults());
 
         return http.build();
