@@ -12,9 +12,4 @@ public class LoginController {
     private ResponseEntity<String> getHome() {
         return  ResponseEntity.status(HttpStatus.OK).body("<h1>Página Home</h1>");
     }
-
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login.html";
-    }
 }
