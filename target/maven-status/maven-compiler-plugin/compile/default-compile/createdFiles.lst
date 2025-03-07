@@ -1,11 +1,9 @@
-com/example/authorization_service/config/WebMvcConfig.class
 com/example/authorization_service/repository/ClientRepository.class
 com/example/authorization_service/parse/ParseUserDTOToUsers.class
 com/example/authorization_service/controllers/ClientController.class
 com/example/authorization_service/AuthorizationServiceApplication.class
 com/example/authorization_service/dto/ClientDTO.class
 com/example/authorization_service/service/UserService.class
-com/example/authorization_service/domain/LoginSocialSuccessHandler.class
 com/example/authorization_service/repository/UserRepository.class
 com/example/authorization_service/domain/CustomAuthentication.class
 com/example/authorization_service/dto/UserReturnDTO.class
@@ -14,6 +12,7 @@ com/example/authorization_service/parse/ParseUserToUserDTO.class
 com/example/authorization_service/parse/ParseClientDTOToClientEntity.class
 com/example/authorization_service/entity/UserEntity.class
 com/example/authorization_service/dto/UserCreateDTO.class
+com/example/authorization_service/config/TokenConfig.class
 com/example/authorization_service/config/AuthorizationServerConfig.class
 com/example/authorization_service/controllers/LoginController.class
 com/example/authorization_service/entity/ClientEntity.class

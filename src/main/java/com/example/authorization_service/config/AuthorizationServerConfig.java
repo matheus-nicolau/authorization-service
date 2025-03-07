@@ -30,7 +30,7 @@ public class AuthorizationServerConfig {
             .securityMatcher(authorizationConfigure.getEndpointsMatcher())
             .with(authorizationConfigure, (authorizationServer) ->
                                             authorizationServer.oidc(Customizer.withDefaults()))
-            .authorizeHttpRequests(authorize ->{
+            .authorizeHttpRequests(authorize -> {
                                     authorize.requestMatchers(HttpMethod.POST, "/client/create").permitAll();
                                     authorize.anyRequest().authenticated();
             })
@@ -53,7 +53,7 @@ public class AuthorizationServerConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests((authorize) -> {
-                                    authorize.anyRequest().authenticated();
+                                            authorize.anyRequest().authenticated();
             })
             .formLogin(Customizer.withDefaults());
 

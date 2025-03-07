@@ -1,11 +1,10 @@
 /home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/AuthorizationServiceApplication.java
 /home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/config/AuthorizationServerConfig.java
-/home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/config/WebMvcConfig.java
+/home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/config/TokenConfig.java
 /home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/controllers/ClientController.java
 /home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/controllers/LoginController.java
 /home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/domain/CustomAuthentication.java
 /home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/domain/CustomAuthenticationProvider.java
-/home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/domain/LoginSocialSuccessHandler.java
 /home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/dto/ClientDTO.java
 /home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/dto/UserCreateDTO.java
 /home/matheusnicolau/Documentos/Matheus/authorization-service/src/main/java/com/example/authorization_service/dto/UserReturnDTO.java
