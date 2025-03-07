@@ -1,1 +1,3 @@
 /home/matheusnicolau/Documentos/Matheus/authorization-service/src/test/java/com/example/authorization_service/AuthorizationServiceApplicationTests.java
+/home/matheusnicolau/Documentos/Matheus/authorization-service/src/test/java/com/example/authorization_service/controllers/ClientControllerTest.java
+/home/matheusnicolau/Documentos/Matheus/authorization-service/src/test/java/com/example/authorization_service/service/ClientServiceTest.java
