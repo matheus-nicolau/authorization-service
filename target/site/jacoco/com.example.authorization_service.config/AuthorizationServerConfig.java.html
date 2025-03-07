@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthorizationServerConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">authorization-service</a> &gt; <a href="index.source.html" class="el_package">com.example.authorization_service.config</a> &gt; <span class="el_source">AuthorizationServerConfig.java</span></div><h1>AuthorizationServerConfig.java</h1><pre class="source lang-java linenums">package com.example.authorization_service.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
+import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
+import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
+
+@Configuration
+@EnableWebSecurity
+<span class="fc" id="L21">public class AuthorizationServerConfig {</span>
+
+    @Bean
+    @Order(1)
+    SecurityFilterChain authorizationSecurityFilterChain(HttpSecurity http) throws Exception{
+
+<span class="fc" id="L27">        var authorizationConfigure = OAuth2AuthorizationServerConfigurer.authorizationServer();</span>
+
+<span class="fc" id="L29">        http</span>
+<span class="fc" id="L30">            .securityMatcher(authorizationConfigure.getEndpointsMatcher())</span>
+<span class="fc" id="L31">            .with(authorizationConfigure, (authorizationServer) -&gt;</span>
+<span class="fc" id="L32">                                            authorizationServer.oidc(Customizer.withDefaults()))</span>
+<span class="fc" id="L33">            .authorizeHttpRequests(authorize -&gt;{</span>
+<span class="fc" id="L34">                                    authorize.requestMatchers(HttpMethod.POST, &quot;/client/create&quot;).permitAll();</span>
+<span class="fc" id="L35">                                    authorize.anyRequest().authenticated();</span>
+<span class="fc" id="L36">            })</span>
+<span class="fc" id="L37">            .oauth2ResourceServer(oauth -&gt;</span>
+<span class="fc" id="L38">                                            oauth.jwt(Customizer.withDefaults())</span>
+            )
+<span class="fc" id="L40">            .exceptionHandling(exceptions -&gt;</span>
+<span class="fc" id="L41">                                            exceptions.defaultAuthenticationEntryPointFor(</span>
+                                                    new LoginUrlAuthenticationEntryPoint(&quot;/login&quot;),
+                                                    new MediaTypeRequestMatcher(MediaType.TEXT_HTML))
+            );
+
+<span class="fc" id="L46">        return http.build();</span>
+    }
+
+    @Bean
+    @Order(2)
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+
+<span class="fc" id="L53">        http</span>
+<span class="fc" id="L54">            .csrf(csrf -&gt; csrf.disable())</span>
+<span class="fc" id="L55">            .authorizeHttpRequests((authorize) -&gt; {</span>
+<span class="fc" id="L56">                                            authorize.anyRequest().authenticated();</span>
+<span class="fc" id="L57">            })</span>
+<span class="fc" id="L58">            .formLogin(Customizer.withDefaults());</span>
+
+<span class="fc" id="L60">        return http.build();</span>
+    }
+
+    @Bean
+    public AuthorizationServerSettings authorizationServerSettings() {
+<span class="fc" id="L65">        return AuthorizationServerSettings.builder().build();</span>
+    }
+
+    @Bean
+    public ClientSettings clientSettings() {
+<span class="fc" id="L70">        return ClientSettings.builder()</span>
+<span class="fc" id="L71">                             .requireAuthorizationConsent(false)</span>
+<span class="fc" id="L72">                             .build();</span>
+    }
+
+    @Bean
+    public GrantedAuthorityDefaults grantedAuthorityDefaults() {
+<span class="fc" id="L77">        return new GrantedAuthorityDefaults(&quot;&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

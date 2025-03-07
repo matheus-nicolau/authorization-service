@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">authorization-service</a> &gt; <a href="index.source.html" class="el_package">com.example.authorization_service.service</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.example.authorization_service.service;
+
+import com.example.authorization_service.dto.UserCreateDTO;
+import com.example.authorization_service.dto.UserReturnDTO;
+import com.example.authorization_service.entity.UserEntity;
+import com.example.authorization_service.parse.ParseUserDTOToUsers;
+import com.example.authorization_service.parse.ParseUserToUserDTO;
+import com.example.authorization_service.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UserService {
+
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository usersRepository;
+
+<span class="fc" id="L21">    public UserService(PasswordEncoder passwordEncoder, UserRepository usersRepository) {</span>
+<span class="fc" id="L22">        this.passwordEncoder = passwordEncoder;</span>
+<span class="fc" id="L23">        this.usersRepository = usersRepository;</span>
+<span class="fc" id="L24">    }</span>
+
+    public void creteUser(UserCreateDTO user) {
+<span class="nc" id="L27">        String password = passwordEncoder.encode(user.password());</span>
+<span class="nc" id="L28">        UserEntity usersEntityToSave = new ParseUserDTOToUsers().parse(user, password);</span>
+<span class="nc" id="L29">        usersRepository.save(usersEntityToSave);</span>
+<span class="nc" id="L30">    }</span>
+
+    public UserEntity findByLogin(String login) {
+<span class="nc" id="L33">        Optional&lt;UserEntity&gt; userFound = usersRepository.findByLogin(login);</span>
+<span class="nc" id="L34">        return userFound.orElseThrow(RuntimeException::new);</span>
+    }
+
+    public UserEntity findByEmail(String email) {
+<span class="nc" id="L38">        Optional&lt;UserEntity&gt; userFound = usersRepository.findByEmail(email);</span>
+<span class="nc" id="L39">        return userFound.orElseThrow(RuntimeException::new);</span>
+    }
+
+    public List&lt;UserReturnDTO&gt; findAllUsers() {
+<span class="nc" id="L43">        List&lt;UserEntity&gt; usersEntityList = usersRepository.findAll();</span>
+<span class="nc" id="L44">        return new ParseUserToUserDTO().parseList(usersEntityList);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
