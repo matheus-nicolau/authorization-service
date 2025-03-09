@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 
 @ExtendWith(MockitoExtension.class)
 public class ClientServiceTest {
@@ -22,6 +24,8 @@ public class ClientServiceTest {
     private ClientRepository clientRepository;
     @Mock
     private ParseClientDTOToClientEntity clientParse;
+    @Mock
+    private ClientEntity clientMock;
     @InjectMocks
     private ClientService clientService;
 
@@ -29,23 +33,37 @@ public class ClientServiceTest {
 
     @BeforeEach
     public void setup() {
-        ClientDTO client = new ClientDTO("1234567",
+       client = new ClientDTO("1234567",
                 "7654321",
                 "http://redirecturi.test.com",
                 "ADMIN");
+
     }
 
     @Test
     @DisplayName("Should be save a client")
-    void shouldBeSaveAClient() {
-        Mockito
-                .when(clientService.save(client))
-                .thenReturn(new ClientEntity());
+    void givenHaveAClient_whenTryToSave_thenMustBeSave() {
+        // WHEN
+        Mockito.when(clientParse.parse(client)).thenReturn(clientMock);
+        ClientEntity clientToSave = clientParse.parse(client);
+        Mockito.when(clientRepository.save(clientToSave)).thenReturn(clientMock);
 
-        ClientEntity save = clientService.save(client);
-        ClientEntity save1 = clientService.save(client);
+        ClientEntity clientSaved = clientService.save(client);
 
-        Assertions.assertEquals(save, save1);
+        // THEN
+       Assertions.assertEquals(clientToSave, clientSaved);
+    }
+
+    @Test
+    @DisplayName("Shold be find a client by id")
+    void givenHaveAClientId_whenTryToFind_thenReturnTheClient() {
+        // WHEN
+        Mockito.when(clientRepository.findByClientId(client.clientId())).thenReturn(Optional.of(clientMock));
+
+        ClientEntity clientById = clientService.findClient(client.clientId());
+
+        // THEN
+        Assertions.assertNotNull(clientById);
 
     }
 

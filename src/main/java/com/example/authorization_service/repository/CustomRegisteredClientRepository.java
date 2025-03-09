@@ -36,7 +36,7 @@ public class CustomRegisteredClientRepository implements RegisteredClientReposit
 
     @Override
     public RegisteredClient findByClientId(String clientId) {
-        var client = clientService.findByClientId(clientId);
+        var client = clientService.findClient(clientId);
         if(client == null) return null;
 
         return RegisteredClient

@@ -1,53 +1,62 @@
 //package com.example.authorization_service.controllers;
 //
+//import com.example.authorization_service.dto.ClientDTO;
 //import com.example.authorization_service.service.ClientService;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.DisplayName;
 //import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
+//import org.mockito.BDDMockito;
+//import org.mockito.Mockito;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 //import org.springframework.http.MediaType;
+//import org.springframework.test.context.bean.override.mockito.MockitoBean;
 //import org.springframework.test.web.servlet.MockMvc;
 //import org.springframework.test.web.servlet.ResultActions;
 //
-//
+//import static org.hamcrest.CoreMatchers.is;
+//import static org.mockito.ArgumentMatchers.any;
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 //
-//@ExtendWith(MockitoExtension.class)
+//@WebMvcTest(ClientController.class)
 //public class ClientControllerTest {
 //
-//    @Mock
-//    private MockMvc mockMvc;
-//    @Mock
+//    @MockitoBean
 //    private ClientService clientService;
-//    @InjectMocks
-//    private ClientController clientController;
+//    @Autowired
+//    private MockMvc mockMvc;
+//    @Autowired
+//    private ObjectMapper mapper;
 //
+//    private ClientDTO client;
 //
 //    @BeforeEach
 //    public void setup() {
-//
+//        ClientDTO client = new ClientDTO("1234567",
+//                "7654321",
+//                "http://redirecturi.test.com",
+//                "ADMIN");
 //    }
 //
 //    @Test
 //    @DisplayName("should be create a client")
-//    void shouldBeCreateAClient() {
+//    void shouldBeCreateAClient() throws Exception {
+//        //GIVEN
+//        BDDMockito.given(clientService.save(any(ClientDTO.class)))
+//                  .willAnswer((invocation) -> invocation.getArgument(0));
 //
-//        String body = "{\"clientId\": \"32379922\",\"clientSecret\": \"12345\",\"redirectUri\": \"http://localhost:8080/xatus\",\"scope\": \"ADMIN\"}";
+//        //WHEN
+//        ResultActions request = mockMvc.perform(
+//                post("/client/create")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(mapper.writeValueAsString(client))
+//        );
 //
-//        try {
-//            ResultActions httpRequest = mockMvc.perform(
-//                    post("/client/create")
-//                            .contentType("application/json")
-//                            .content(body)
-//                            .accept(MediaType.APPLICATION_JSON)
-//            );
+//        //THEN
+//        request.andDo(print()).andExpect(jsonPath("$.clientId", is(client.clientId())));
 //
-//            System.out.println(httpRequest.toString());
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
 //    }
 //}

@@ -24,7 +24,7 @@ public class ClientService {
         return clientRepository.save(clientToSave);
     }
 
-    public ClientEntity findByClientId(String clientId) {
+    public ClientEntity findClient(String clientId) {
         Optional<ClientEntity> clientOptional = clientRepository.findByClientId(clientId);
         return clientOptional.orElse(null);
     }
