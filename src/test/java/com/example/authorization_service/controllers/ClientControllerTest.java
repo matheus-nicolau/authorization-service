@@ -7,7 +7,6 @@
 //import org.junit.jupiter.api.DisplayName;
 //import org.junit.jupiter.api.Test;
 //import org.mockito.BDDMockito;
-//import org.mockito.Mockito;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 //import org.springframework.http.MediaType;
@@ -15,7 +14,6 @@
 //import org.springframework.test.web.servlet.MockMvc;
 //import org.springframework.test.web.servlet.ResultActions;
 //
-//import static org.hamcrest.CoreMatchers.is;
 //import static org.mockito.ArgumentMatchers.any;
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 //import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -26,6 +24,7 @@
 //
 //    @MockitoBean
 //    private ClientService clientService;
+//
 //    @Autowired
 //    private MockMvc mockMvc;
 //    @Autowired
@@ -56,7 +55,10 @@
 //        );
 //
 //        //THEN
-//        request.andDo(print()).andExpect(jsonPath("$.clientId", is(client.clientId())));
+//        request.andDo(print())
+//                .andExpect(jsonPath("$.clientId").value(client.clientId()));
 //
 //    }
+//
+//
 //}
