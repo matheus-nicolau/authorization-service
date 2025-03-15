@@ -1,13 +1,12 @@
 server:
   port: 9000
 
-#logging:
-#  level:
-#    org.springframework.security: trace
-
 spring:
   application:
     name: authorization-service
+  output:
+    ansi:
+      enabled: ALWAYS
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
